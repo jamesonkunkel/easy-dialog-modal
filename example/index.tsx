@@ -1,19 +1,18 @@
-import 'react-app-polyfill/ie11';
-import { createRoot } from 'react-dom/client';
-const container = document.getElementById('root');
+import "react-app-polyfill/ie11";
+import { createRoot } from "react-dom/client";
+const container = document.getElementById("root");
 const root = createRoot(container!); // createRoot(container!) if you use TypeScript
 
-// import { Thing } from '../.';
-import { Modal } from '../src/index';
-import { useModal } from '../src/index';
+import { Modal } from "../src/index";
+import { useModal } from "../src/index";
+import "./style.css";
 
 const App = () => {
-  const [openModalOne, closeModalOne, isModalOneOpen] = useModal('my_modal');
-  console.log(isModalOneOpen);
+  const [openModalOne, closeModalOne, isModalOneOpen] = useModal("my_modal");
 
   return (
     <div>
-      <Modal id="my_modal" closeOnOutsideClick>
+      <Modal id="my_modal" closeOnOutsideClick className="dialog-modal">
         <h1>My Modal</h1>
         <button onClick={closeModalOne}>Close Modal</button>
       </Modal>
@@ -22,7 +21,7 @@ const App = () => {
         <button>Close Modal</button>
       </Modal>
       <button onClick={openModalOne}>Open Modal</button>
-      <p>Modal one is open? {isModalOneOpen ? 'true' : 'false'}</p>
+      <p>Modal one is open? {isModalOneOpen ? "true" : "false"}</p>
     </div>
   );
 };

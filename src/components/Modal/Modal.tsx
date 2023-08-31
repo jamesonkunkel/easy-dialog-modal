@@ -1,16 +1,19 @@
-import React, { useEffect, useRef } from 'react';
-import useModalStore from '../../stores/modalStore';
+import React, { useEffect, useRef } from "react";
+import useModalStore from "../../stores/modalStore";
+import styles from "./Modal.module.css";
 
 interface ModalProps {
   id: string;
   children: React.ReactNode;
   closeOnOutsideClick?: boolean;
+  className?: string;
 }
 
 function Modal({
   id,
   children,
   closeOnOutsideClick = false,
+  className,
 }: ModalProps): JSX.Element {
   const [modals, closeModal] = useModalStore((state) => [
     state.modals,
@@ -28,9 +31,9 @@ function Modal({
   const isOpen = !!modals.find((modal) => modal.id === id)?.open;
 
   useEffect(() => {
-    console.log('test');
+    console.log("test");
     const handleOutsideClick = (event: MouseEvent) => {
-      console.log('handleOutsideClick');
+      console.log("handleOutsideClick");
       if (
         closeOnOutsideClick &&
         isOpen &&
@@ -42,18 +45,22 @@ function Modal({
     };
 
     if (closeOnOutsideClick && isOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener("mousedown", handleOutsideClick);
     }
 
     return () => {
       if (closeOnOutsideClick) {
-        document.removeEventListener('mousedown', handleOutsideClick);
+        document.removeEventListener("mousedown", handleOutsideClick);
       }
     };
   }, [isOpen, closeOnOutsideClick, closeModal, id]);
 
   return (
-    <dialog ref={modalRef} open={isOpen}>
+    <dialog
+      className={`${styles["dialog-modal"]} ${className}`}
+      ref={modalRef}
+      open={isOpen}
+    >
       {children}
     </dialog>
   );

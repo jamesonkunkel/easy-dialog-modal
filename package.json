@@ -27,7 +27,7 @@
   "prettier": {
     "printWidth": 80,
     "semi": true,
-    "singleQuote": true,
+    "singleQuote": false,
     "trailingComma": "es5"
   },
   "jest": {
@@ -53,12 +53,16 @@
     "@size-limit/preset-small-lib": "^8.2.6",
     "@tsconfig/recommended": "^1.0.2",
     "@tsconfig/vite-react": "^2.0.0",
+    "@types/css-modules": "^1.0.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.15",
+    "cssnano": "^6.0.1",
     "dts-cli": "^2.0.3",
     "husky": "^8.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-postcss": "^4.0.2",
     "size-limit": "^8.2.6",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
