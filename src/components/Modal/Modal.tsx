@@ -1,33 +1,62 @@
-//import react hooks
-import React, { useEffect, useMemo } from 'react';
-
-//import stores
+import React, { useEffect, useRef } from 'react';
 import useModalStore from '../../stores/modalStore';
 
-//props typing
 interface ModalProps {
   id: string;
   children: React.ReactNode;
+  closeOnOutsideClick?: boolean;
 }
 
-function Modal({ id, children }: ModalProps) {
-  //get modal state from store
-  const [modals] = useModalStore((state) => [state.modals]);
+function Modal({
+  id,
+  children,
+  closeOnOutsideClick = false,
+}: ModalProps): JSX.Element {
+  const [modals, closeModal] = useModalStore((state) => [
+    state.modals,
+    state.closeModal,
+  ]);
 
-  //on mount, add modal to store
+  const modalRef = useRef<HTMLDialogElement | null>(null);
+
   useEffect(() => {
     useModalStore.setState((state) => ({
       modals: [...state.modals, { id, open: false }],
     }));
   }, [id]);
 
-  //memoize whether this modal is open or not
-  const isOpen =
-    useMemo(() => {
-      return modals.find((modal) => modal.id === id)?.open;
-    }, [id, modals]) || false;
+  const isOpen = !!modals.find((modal) => modal.id === id)?.open;
 
-  return <dialog open={isOpen}>{children}</dialog>;
+  useEffect(() => {
+    console.log('test');
+    const handleOutsideClick = (event: MouseEvent) => {
+      console.log('handleOutsideClick');
+      if (
+        closeOnOutsideClick &&
+        isOpen &&
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        closeModal(id);
+      }
+    };
+
+    if (closeOnOutsideClick && isOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      if (closeOnOutsideClick) {
+        document.removeEventListener('mousedown', handleOutsideClick);
+      }
+    };
+  }, [isOpen, closeOnOutsideClick, closeModal, id]);
+
+  return (
+    <dialog ref={modalRef} open={isOpen}>
+      {children}
+    </dialog>
+  );
 }
 
 export default Modal;

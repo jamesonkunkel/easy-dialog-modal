@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <div>
-      <Modal id="my_modal">
+      <Modal id="my_modal" closeOnOutsideClick>
         <h1>My Modal</h1>
         <button onClick={closeModalOne}>Close Modal</button>
       </Modal>
