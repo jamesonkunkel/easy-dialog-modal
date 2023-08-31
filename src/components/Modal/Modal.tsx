@@ -1,5 +1,5 @@
 //import react hooks
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 //import stores
 import useModalStore from '../../stores/modalStore';
