@@ -7,6 +7,7 @@ interface ModalProps {
   children: React.ReactNode;
   closeOnOutsideClick?: boolean;
   className?: string;
+  open?: boolean; // Add the 'open' prop
 }
 
 function Modal({
@@ -14,26 +15,30 @@ function Modal({
   children,
   closeOnOutsideClick = false,
   className,
+  open = false, // Default to closed
 }: ModalProps): JSX.Element {
-  const [modals, closeModal] = useModalStore((state) => [
+  const [modals, closeModal, setModalState] = useModalStore((state) => [
     state.modals,
     state.closeModal,
+    state.setModalState,
   ]);
 
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
   useEffect(() => {
     useModalStore.setState((state) => ({
-      modals: [...state.modals, { id, open: false }],
+      modals: [...state.modals, { id, open }],
     }));
-  }, [id]);
+  }, [id, open]); // Include 'open' in the dependency array
+
+  useEffect(() => {
+    setModalState(id, open); // Update the state when open prop changes
+  }, [id, open, setModalState]);
 
   const isOpen = !!modals.find((modal) => modal.id === id)?.open;
 
   useEffect(() => {
-    console.log("test");
     const handleOutsideClick = (event: MouseEvent) => {
-      console.log("handleOutsideClick");
       if (
         closeOnOutsideClick &&
         isOpen &&

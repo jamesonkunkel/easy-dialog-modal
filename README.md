@@ -37,7 +37,11 @@ const App = () => {
 export default App;
 ```
 
-### `useModal` Hook
+## Controlling modal state
+
+There are two ways to control whether or not a modal component is open:
+
+### `useModal` hook
 
 The `useModal` hook provides an easy way to control modals in your application. It returns functions that allow you to open and close specific modals by their unique IDs as well as a boolean that informs your application whether a particular modal is open or not.
 
@@ -59,6 +63,37 @@ const App = () => {
         <h1>Modal Title</h1>
         <p>This is modal content.</p>
         <button onClick={closeMyModal}>Close</button>
+      </Modal>
+    </div>
+  );
+};
+
+export default App;
+```
+
+### `open` prop
+
+Alternatively you can provide an `open` prop directly to your modal component and manage state however you would like.
+
+```javascript
+import React, { useState } from "react";
+import Modal from "easy-dialog-modal";
+import "your-modal-library/dist/styles.css"; // Import the library's styles
+
+const App = () => {
+  //component level state
+  const [isMyModalOpen, setIsMyModalOpen] = useState(false);
+
+  return (
+    <div>
+      {/* You can put anything in the modal */}
+      <button onClick={() => setIsMyModalOpen(!isMyModalOpen)}>
+        Toggle whether modal is open
+      </button>
+      <p>My modal is open? {isMyModalOpen}</p>
+      <Modal id="my_modal" open={isMyModalOpen}>
+        <h1>Modal Title</h1>
+        <p>This is modal content.</p>
       </Modal>
     </div>
   );

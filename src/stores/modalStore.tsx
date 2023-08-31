@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { Modal, ModalStore } from '../types/modalTypes';
+import { create } from "zustand";
+import { Modal, ModalStore } from "../types/modalTypes";
 
 const useModalStore = create<ModalStore>()((set, get) => ({
   //array of modal objects to manage
@@ -19,6 +19,14 @@ const useModalStore = create<ModalStore>()((set, get) => ({
     set((state) => ({
       modals: state.modals.map((modal) =>
         modal.id === id ? { ...modal, open: false } : modal
+      ),
+    }));
+  },
+
+  setModalState: (id: string, open: boolean) => {
+    set((state) => ({
+      modals: state.modals.map((modal) =>
+        modal.id === id ? { ...modal, open } : modal
       ),
     }));
   },
