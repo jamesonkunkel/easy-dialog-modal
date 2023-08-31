@@ -13,4 +13,15 @@ const useModalStore = create<ModalStore>()((set) => ({
       ),
     }));
   },
+
+  //close a modal by id
+  closeModal: (id: string) => {
+    set((state) => ({
+      modals: state.modals.map((modal) =>
+        modal.id === id ? { ...modal, open: false } : modal
+      ),
+    }));
+  },
 }));
+
+export default useModalStore;

@@ -6,4 +6,5 @@ export interface Modal {
 export interface ModalStore {
   modals: Modal[];
   openModal: (id: string) => void;
+  closeModal: (id: string) => void;
 }
