@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import useModalStore from "../../stores/modalStore";
-import styles from "./Modal.module.css";
+import "./Modal.css";
 
 interface ModalProps {
   id: string;
@@ -62,7 +62,7 @@ function Modal({
 
   return (
     <dialog
-      className={`${styles["dialog-modal"]} ${className}`}
+      className={`dialog-modal ${className}`}
       ref={modalRef}
       open={isOpen}
     >
