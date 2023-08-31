@@ -8,20 +8,21 @@ import { Modal } from '../src/index';
 import { useModal } from '../src/index';
 
 const App = () => {
-  const { openModalById, closeModalById } = useModal('my_modal');
+  const [openModalOne, closeModalOne, isModalOneOpen] = useModal('my_modal');
+  console.log(isModalOneOpen);
 
   return (
     <div>
       <Modal id="my_modal">
         <h1>My Modal</h1>
-        <button onClick={closeModalById}>Close Modal</button>
+        <button onClick={closeModalOne}>Close Modal</button>
       </Modal>
       <Modal id="my_second_modal">
         <h1>My Second Modal</h1>
         <button>Close Modal</button>
       </Modal>
-      <button onClick={openModalById}>Open Modal</button>
-      {/* <button onClick={openMySecondModal}>Open Second Modal</button> */}
+      <button onClick={openModalOne}>Open Modal</button>
+      <p>Modal one is open? {isModalOneOpen ? 'true' : 'false'}</p>
     </div>
   );
 };

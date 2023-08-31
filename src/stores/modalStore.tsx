@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Modal, ModalStore } from '../types/modalTypes';
 
-const useModalStore = create<ModalStore>()((set) => ({
+const useModalStore = create<ModalStore>()((set, get) => ({
   //array of modal objects to manage
   modals: [] as Modal[],
 
